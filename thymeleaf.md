@@ -80,7 +80,10 @@ thymeleaf是一种Java模板引擎，那何为模板引擎呢？模板引擎就�
 									</tr>
 	* th:if
 	* th:unless	和if相反	<a th:href="@{/login}" th:unless=${session.user != null}>Login</a>
-	* th:href
+	* th:href  th:href="@{/Controller/behavior(param1=1,param2=${person.id})}"
+	
+	
+		
 	* th:swith th:case 多路选择	<div th:switch="${user.role}"> 
 								<p th:case="'admin'">User is an administrator</p>
 	* th:fragment	布局标签，定义一个代码片段，方便其它地方引用 
@@ -110,6 +113,22 @@ thymeleaf是一种Java模板引擎，那何为模板引擎呢？模板引擎就�
 	
 	注:多个th标签同时存在,其生效顺序为
 		include,each,if/unless/switch/case,with,attr/attrprepend/attrappend,value/href,src ,etc,text/utext,fragment,remove
-							
-							
+
+### Thymeleaf中href与 th:href的区别		
+>语法格式如下：
+
+`<a th:href="@{/channel/page/add}">添加渠道 </a>`
+
+`<a href="/channel/page/add">添加渠道 </a>`  
+在默认项目路径为空时，打Jar包单独运行时。二者效果一致。
+
+在使用Maven内嵌Tomcat或打War包部署到Servlet容器，或者在项目内执行App启动类，且有配置项目路径时。
+
+二者区别如下：  
+
+href始终从端口开始作为根路径，如http://localhost:8080/channel/page/add  
+
+th:href会寻找项目路径作为根路径，如http://localhost:8080/dx/channel/page/add  
+
+href也可以在相对路径前, 先获取绝对路径
 							
